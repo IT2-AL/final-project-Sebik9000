@@ -25,3 +25,15 @@ def je_tah_platny(deska, radek, sloupec):
 def je_deska_plna(deska):
     # Zkontroluje jestli je hrací deska plná.
     return all(deska[radek][sloupec] != " " for radek in range(VELIKOST_HRACI_DESKY) for sloupec in range(VELIKOST_HRACI_DESKY))
+
+# Funkce pro kontrolu vítěze
+def zkontroluj_viteze(deska, symbol):
+    # Zkontroluje jestli daný symbol vyhrál hru.
+    for i in range(VELIKOST_HRACI_DESKY):
+        if all(deska[i][j] == symbol for j in range(VELIKOST_HRACI_DESKY)) or \
+           all(deska[j][i] == symbol for j in range(VELIKOST_HRACI_DESKY)):
+            return True
+    if all(deska[i][i] == symbol for i in range(VELIKOST_HRACI_DESKY)) or \
+       all(deska[i][VELIKOST_HRACI_DESKY - i - 1] == symbol for i in range(VELIKOST_HRACI_DESKY)):
+        return True
+    return False
