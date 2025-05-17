@@ -20,3 +20,8 @@ def zobraz_desku(deska):
 def je_tah_platny(deska, radek, sloupec):
     # Zkontroluje jestli je tah platný.
     return 0 <= radek < VELIKOST_HRACI_DESKY and 0 <= sloupec < VELIKOST_HRACI_DESKY and deska[radek][sloupec] == " "
+
+# Funkce pro kontrolu jestli je deska plná
+def je_deska_plna(deska):
+    # Zkontroluje jestli je hrací deska plná.
+    return all(deska[radek][sloupec] != " " for radek in range(VELIKOST_HRACI_DESKY) for sloupec in range(VELIKOST_HRACI_DESKY))
