@@ -15,3 +15,8 @@ def zobraz_desku(deska):
     for radek in deska:
         print("|".join(radek))
         print("-" * (VELIKOST_HRACI_DESKY * 2 - 1))
+
+# Funkce pro kontrolu platnosti tahu
+def je_tah_platny(deska, radek, sloupec):
+    # Zkontroluje jestli je tah platný.
+    return 0 <= radek < VELIKOST_HRACI_DESKY and 0 <= sloupec < VELIKOST_HRACI_DESKY and deska[radek][sloupec] == " "
