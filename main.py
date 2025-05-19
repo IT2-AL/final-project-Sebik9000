@@ -50,6 +50,14 @@ def hlavni():
     aktualni_hrac = 1
     symboly = {1: SYMBOL_HRAC_1, 2: SYMBOL_HRAC_2}
 
+# Pravidla hry - zobrazí se na začátku hry
+    print("Pravidla hry:")
+    print("- Hraje se na poli 3x3.")
+    print("- Hráč 1 hraje za symbol X, hráč 2 za symbol O.")
+    print("- Hráči zadávají číslo řádku a sloupce (1-3), kam chtějí svůj symbol umístit.")
+    print("- Vyhrává ten, kdo jako první vytvoří řadu tří svých symbolů vodorovně, svisle nebo diagonálně.")
+    print("- Pokud je pole plné a nikdo nevyhrál, hra končí remízou.\n")
+
     while True:
         zobraz_desku(deska)
         print(f"Tah hráče {aktualni_hrac} ({symboly[aktualni_hrac]}).")
