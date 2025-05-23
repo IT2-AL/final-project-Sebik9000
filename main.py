@@ -1,38 +1,40 @@
 # Konstanty pro hru
-VELIKOST_HRACI_DESKY = 3
-SYMBOL_HRAC_1 = "X"
-SYMBOL_HRAC_2 = "O"
+VELIKOST_HRACI_DESKY = 3  # Velikost hrací desky (3x3)
+SYMBOL_HRAC_1 = "X"       # Symbol pro hráče 1
+SYMBOL_HRAC_2 = "O"       # Symbol pro hráče 2
 
 
 # Funkce pro vytvoření hrací desky
 def inicializuj_desku():
-    #Vytvoří prázdnou hrací desku.
+    # Vytvoří a vrátí prázdnou hrací desku jako seznam seznamů
     return [[" " for _ in range(VELIKOST_HRACI_DESKY)] for _ in range(VELIKOST_HRACI_DESKY)]
 
 # Funkce pro zobrazení hrací desky
 def zobraz_desku(deska):
-    # Zobrazí aktuální stav hrací desky.
+    # Vypíše aktuální stav hrací desky do konzole
     for radek in deska:
-        print("|".join(radek))
-        print("-" * (VELIKOST_HRACI_DESKY * 2 - 1))
+        print("|".join(radek))  # Oddělí políčka svislítkem
+        print("-" * (VELIKOST_HRACI_DESKY * 2 - 1))  # Odděluje řádky čarou
 
 # Funkce pro kontrolu platnosti tahu
 def je_tah_platny(deska, radek, sloupec):
-    # Zkontroluje jestli je tah platný.
+    # Vrací True, pokud je tah v rámci desky a políčko je prázdné
     return 0 <= radek < VELIKOST_HRACI_DESKY and 0 <= sloupec < VELIKOST_HRACI_DESKY and deska[radek][sloupec] == " "
 
 # Funkce pro kontrolu jestli je deska plná
 def je_deska_plna(deska):
-    # Zkontroluje jestli je hrací deska plná.
+    # Vrací True, pokud jsou všechna políčka obsazená
     return all(deska[radek][sloupec] != " " for radek in range(VELIKOST_HRACI_DESKY) for sloupec in range(VELIKOST_HRACI_DESKY))
 
 # Funkce pro kontrolu vítěze
 def zkontroluj_viteze(deska, symbol):
-    # Zkontroluje jestli daný symbol vyhrál hru.
+    # Kontroluje, jestli hráč se zadaným symbolem vyhrál
     for i in range(VELIKOST_HRACI_DESKY):
+        # Kontrola řádků a sloupců
         if all(deska[i][j] == symbol for j in range(VELIKOST_HRACI_DESKY)) or \
            all(deska[j][i] == symbol for j in range(VELIKOST_HRACI_DESKY)):
             return True
+    # Kontrola obou diagonál
     if all(deska[i][i] == symbol for i in range(VELIKOST_HRACI_DESKY)) or \
        all(deska[i][VELIKOST_HRACI_DESKY - i - 1] == symbol for i in range(VELIKOST_HRACI_DESKY)):
         return True
@@ -40,17 +42,17 @@ def zkontroluj_viteze(deska, symbol):
 
 # Funkce pro kontrolu jestli je deska plná
 def je_deska_plna(deska):
-    # Zkontroluje jestli je hrací deska plná.
+    # Vrací True, pokud jsou všechna políčka obsazená (duplikace, ale nevadí)
     return all(deska[radek][sloupec] != " " for radek in range(VELIKOST_HRACI_DESKY) for sloupec in range(VELIKOST_HRACI_DESKY))
 
 # Hlavní funkce pro spuštění hry
 def hlavni():
-    # Hlavní funkce pro spuštění hry Piškvorky.
-    deska = inicializuj_desku()
-    aktualni_hrac = 1
-    symboly = {1: SYMBOL_HRAC_1, 2: SYMBOL_HRAC_2}
+    # Spustí hru Piškvorky a řídí její průběh
+    deska = inicializuj_desku()  # Vytvoří prázdnou desku
+    aktualni_hrac = 1           # Začíná hráč 1
+    symboly = {1: SYMBOL_HRAC_1, 2: SYMBOL_HRAC_2}  # Slovník pro převod čísla hráče na symbol
 
-# Pravidla hry - zobrazí se na začátku hry
+    # Pravidla hry - zobrazí se na začátku hry
     print("Pravidla hry:")
     print("- Hraje se na poli 3x3.")
     print("- Hráč 1 hraje za symbol X, hráč 2 za symbol O.")
@@ -59,11 +61,11 @@ def hlavni():
     print("- Pokud je pole plné a nikdo nevyhrál, hra končí remízou.\n")
 
     while True:
-        zobraz_desku(deska)
+        zobraz_desku(deska)  # Zobrazí aktuální stav desky
         print(f"Tah hráče {aktualni_hrac} ({symboly[aktualni_hrac]}).")
 
         try:
-            # Získání vstupu od uživatele
+            # Získání vstupu od uživatele (řádek a sloupec)
             radek = int(input("Zadejte řádek (1-3): ")) - 1
             sloupec = int(input("Zadejte sloupec (1-3): ")) - 1
 
@@ -72,7 +74,7 @@ def hlavni():
                 print("Neplatný tah. Zkuste to znovu.")
                 continue
 
-            # Provedení tahu
+            # Provedení tahu (zápis symbolu na desku)
             deska[radek][sloupec] = symboly[aktualni_hrac]
 
             # Kontrola vítěze
@@ -87,11 +89,11 @@ def hlavni():
                 print("Remíza!")
                 break
 
-            # Přepnutí hráče
+            # Přepnutí hráče na druhého
             aktualni_hrac = 2 if aktualni_hrac == 1 else 1
 
         except ValueError:
-            # Zpracování neplatného vstupu
+            # Zpracování neplatného vstupu (např. písmeno místo čísla)
             print("Neplatný vstup. Zadejte pouze čísla.")
 
 
